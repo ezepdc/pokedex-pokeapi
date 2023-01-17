@@ -1,10 +1,19 @@
+<div class="banner mb-4">
+  <div class="text-center text-white">
+    <h1>Pokédex</h1>
+    <h3>Algo no funcionó</h3>
+    <p>Si ha realizado una búsqueda es posible que no exista ese Pokemón</p>
+    <p>Por favor vuelve a intentarlo</p>
+  </div>
+</div>
 <div class="container">
-  <h1>Algo no funcionó</h1>
-
-  <p>Si ha realizado una búsqueda es posible que no exista ese Pokemón</p>
-  <p>Por favor vuelve a intentarlo</p>
-  <p><%= link_to :back do %>
-    <i class="fa-solid fa-circle-chevron-left"></i> Volver
-  <% end %></p>
-  <hr>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <%= link_to :back, class:"page-link" do %>
+          <i class="fa-sharp fa-solid fa-chevron-left"></i> Volver
+        <% end %>
+      </li>
+    </ul>
+  </nav>
 </div>
