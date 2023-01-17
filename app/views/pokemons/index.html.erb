@@ -1,0 +1,64 @@
+<div class="container">
+  <h1>Pokédex</h1>
+
+  <%= form_tag({controller: "pokemons", action: "index"}, method: :get, class: "d-flex my-3") do %>
+    <%= text_field_tag :search_term,
+    params[:search_term],
+    class: "form-control",
+    placeholder: "Buscar Pokemón" %>
+    <%= submit_tag "Buscar", class: "btn btn-primary" %>
+  <% end %>
+
+  <% if @pokemon %>
+    <p><%= link_to :back do %>
+      <i class="fa-solid fa-circle-chevron-left"></i>
+    <% end %></p>
+    <%= image_tag @pokemon.photos.first %>
+    <p>Nombre: <%= @pokemon.name %></p>
+    <p>Tipo:</p>
+    <ul>
+      <% @pokemon.types.each do |type| %>
+        <li><%= type %></li>
+      <% end %>
+    </ul>
+    <p>Peso: <%= @pokemon.weight %></p>
+    <p>Habilidades</p>
+    <ul>
+      <% @pokemon.abilities.each do |ability| %>
+        <li><%= ability %></li>
+      <% end %>
+    </ul>
+    <%= link_to "Ver màs información de #{@pokemon.name}", pokemon_path(@pokemon.name), class:"btn btn-primary" %>
+    <hr>
+  <% else %>
+    <% @pokemons.each do |poke| %>
+      <%= image_tag poke.photos.first %>
+      <p>Nombre: <%= poke.name %></p>
+      <p>Tipo:</p>
+      <ul>
+        <% poke.types.each do |type| %>
+          <li><%= type %></li>
+        <% end %>
+      </ul>
+      <p>Peso: <%= poke.weight %></p>
+      <p>Habilidades</p>
+      <ul>
+        <% poke.abilities.each do |ability| %>
+          <li><%= ability %></li>
+        <% end %>
+      </ul>
+      <%= link_to "Ver màs información de #{poke.name}", poke_path(poke.name), class:"btn btn-primary" %>
+      <hr>
+    <% end %>
+    <% if @previous %>
+      <%= link_to pokemons_path + "?" + @previous do %>
+        <i class="fa-sharp fa-solid fa-chevron-left"></i> 20 anteriores
+      <% end %>
+    <% end %>
+    <% if @next %>
+      <%= link_to pokemons_path + "?" + @next do %>
+        Próximos 20 <i class="fa-sharp fa-solid fa-chevron-right"></i>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,38 @@
+<div class="container">
+  <p><%= link_to :back do %>
+    <i class="fa-solid fa-circle-chevron-left"></i>
+  <% end %></p>
+
+  <p><%= image_tag @pokemon.photos.first %></p>
+  <p>Nombre: <%= @pokemon.name %></p>
+  <p>Tipo:</p>
+  <ul>
+    <% @pokemon.types.each do |type| %>
+      <li><%= type %></li>
+    <% end %>
+  </ul>
+  <p>Peso: <%= @pokemon.weight %></p>
+  <p>Habilidades</p>
+  <ul>
+    <% @pokemon.abilities.each do |ability| %>
+      <li><%= ability %></li>
+    <% end %>
+  </ul>
+  <p>Descripción</p>
+  <ul>
+    <% @pokemon_details.effect_entries.each do |effect_entry| %>
+      <% if effect_entry["language"]["name"] == "en" %>
+        <li><%= effect_entry["effect"] %></li>
+      <% end %>
+    <% end %>
+  </ul>
+  <p>Evoluciones</p>
+  <ul>
+    <% @pokemon_evolves.chains.each do |chain| %>
+        <% if chain["evolves_to"][0].present? %>
+          <li><%= chain["evolves_to"][0]["species"]["name"] %></li>
+        <% end %>
+        <li><%= chain["species"]["name"] %></li>
+    <% end %>
+  </ul>
+</div>
