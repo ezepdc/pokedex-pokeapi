@@ -2,7 +2,7 @@ class PokemonsController < ApplicationController
   def index
     if params[:search_term].present?
       begin
-        @pokemon = PokeapiClient.new.get_pokemon(params[:search_term])
+        @pokemon = PokeapiClient.new.get_pokemon(params[:search_term].downcase)
       rescue RestClient::NotFound
         render template: "errors/404", status: 404
       end
