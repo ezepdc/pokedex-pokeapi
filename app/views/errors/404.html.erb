@@ -1,13 +1,26 @@
 <div class="banner mb-4">
-  <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-end">
-      <li class="page-item">
-        <%= link_to pokemons_path, class:"page-link" do %>
-          <i class="fa-solid fa-house"></i> Home
-        <% end %>
-      </li>
-    </ul>
-  </nav>
+  <div class="d-none d-md-block d-lg-block ">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-end">
+        <li class="page-item">
+          <%= link_to pokemons_path, class:"page-link" do %>
+            <i class="fa-solid fa-house"></i> Home
+          <% end %>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="d-md-none d-lg-none position-absolute top-0 end-0">
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <%= link_to pokemons_path, class:"page-link" do %>
+            <i class="fa-solid fa-house"></i> Home
+          <% end %>
+        </li>
+      </ul>
+    </nav>
+  </div>
   <div class="text-center text-white">
     <h1>Pokédex</h1>
     <h3>Algo no funcionó</h3>
