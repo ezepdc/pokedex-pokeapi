@@ -1,13 +1,24 @@
-<div class="container">
-  <h1>Pokédex</h1>
+<div class="banner">
+      <div class="container">
+        <h1>Pokédex</h1>
+  <div class="d-flex justify-content-center col-12 col-md-6 col-lg-4">
+    <%= form_tag({controller: "pokemons", action: "index"}, method: :get, class: "d-flex my-3") do %>
+      <%= text_field_tag :search_term,
+      params[:search_term],
+      class: "form-control",
+      placeholder: "Buscar Pokemón" %>
+      <%= submit_tag "Buscar", class: "btn btn-primary" %>
+    <% end %>
+  </div>
 
-  <%= form_tag({controller: "pokemons", action: "index"}, method: :get, class: "d-flex my-3") do %>
-    <%= text_field_tag :search_term,
-    params[:search_term],
-    class: "form-control",
-    placeholder: "Buscar Pokemón" %>
-    <%= submit_tag "Buscar", class: "btn btn-primary" %>
-  <% end %>
+
+      </div>
+    </div>
+
+
+<div class="container">
+
+
 
   <% if @pokemon %>
     <p><%= link_to :back do %>
@@ -18,47 +29,67 @@
     <p>Tipo:</p>
     <ul>
       <% @pokemon.types.each do |type| %>
-        <li><%= type %></li>
+        <li><%= type.capitalize %></li>
       <% end %>
     </ul>
     <p>Peso: <%= @pokemon.weight %></p>
     <p>Habilidades</p>
     <ul>
       <% @pokemon.abilities.each do |ability| %>
-        <li><%= ability %></li>
+        <li><%= ability.capitalize %></li>
       <% end %>
     </ul>
     <%= link_to "Ver màs información de #{@pokemon.name}", pokemon_path(@pokemon.name), class:"btn btn-primary" %>
     <hr>
   <% else %>
-    <% @pokemons.each do |poke| %>
-      <%= image_tag poke.photos.first %>
-      <p>Nombre: <%= poke.name %></p>
-      <p>Tipo:</p>
-      <ul>
-        <% poke.types.each do |type| %>
-          <li><%= type %></li>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+      <% @pokemons.each do |poke| %>
+        <div class="col">
+          <div class="card h-100">
+            <%= link_to pokemon_path(poke.name) do %>
+              <%= image_tag poke.photos.first, class:"card-img-top" %>
+            <% end %>
+            <div class="card-body">
+              <h5 class="card-title"><%= poke.name %></h5>
+              <p class="card-text">
+                <p>Tipo:</p>
+                <ul>
+                  <% poke.types.each do |type| %>
+                    <li><%= type.capitalize %></li>
+                  <% end %>
+                </ul>
+                <p>Peso: <%= poke.weight %></p>
+                <p>Habilidades</p>
+                <ul>
+                  <% poke.abilities.each do |ability| %>
+                    <li><%= ability.capitalize %></li>
+                  <% end %>
+                </ul>
+              </p>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <nav aria-label="Page navigation example" class="m-3">
+      <ul class="pagination justify-content-center">
+        <% if @previous %>
+          <li class="page-item">
+            <%= link_to pokemons_path + "?" + @previous, class:"page-link" do %>
+              <i class="fa-sharp fa-solid fa-chevron-left"></i> Anteriores
+            <% end %>
+          </li>
+        <% end %>
+        <% if @next %>
+          <li class="page-item">
+            <%= link_to pokemons_path + "?" + @next, class:"page-link" do %>
+              Siguientes <i class="fa-sharp fa-solid fa-chevron-right"></i>
+            <% end %>
+          </li>
         <% end %>
       </ul>
-      <p>Peso: <%= poke.weight %></p>
-      <p>Habilidades</p>
-      <ul>
-        <% poke.abilities.each do |ability| %>
-          <li><%= ability %></li>
-        <% end %>
-      </ul>
-      <%= link_to "Ver màs información de #{poke.name}", pokemon_path(poke.name), class:"btn btn-primary" %>
-      <hr>
-    <% end %>
-    <% if @previous %>
-      <%= link_to pokemons_path + "?" + @previous do %>
-        <i class="fa-sharp fa-solid fa-chevron-left"></i> 20 anteriores
-      <% end %>
-    <% end %>
-    <% if @next %>
-      <%= link_to pokemons_path + "?" + @next do %>
-        Próximos 20 <i class="fa-sharp fa-solid fa-chevron-right"></i>
-      <% end %>
-    <% end %>
+    </nav>
   <% end %>
 </div>
