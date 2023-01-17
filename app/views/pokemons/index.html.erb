@@ -1,7 +1,8 @@
-<div class="banner">
-      <div class="container">
-        <h1>Pokédex</h1>
-  <div class="d-flex justify-content-center col-12 col-md-6 col-lg-4">
+<div class="banner mb-4">
+  <div class="text-center text-white">
+    <h1>Pokédex</h1>
+  </div>
+  <div class="container d-flex col-12 col-md-6 col-lg-4">
     <%= form_tag({controller: "pokemons", action: "index"}, method: :get, class: "d-flex my-3") do %>
       <%= text_field_tag :search_term,
       params[:search_term],
@@ -10,70 +11,78 @@
       <%= submit_tag "Buscar", class: "btn btn-primary" %>
     <% end %>
   </div>
-
-
+</div>
+<div class="container">
+  <% if @pokemon %>
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <%= link_to :back, class:"page-link" do %>
+            <i class="fa-sharp fa-solid fa-chevron-left"></i> Volver
+          <% end %>
+        </li>
+      </ul>
+    </nav>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 d-flex justify-content-center mb-4">
+      <div class="col">
+        <div class="card shadow h-100">
+          <div class="d-flex justify-content-center">
+            <%= link_to pokemon_path(@pokemon.name) do %>
+              <%= image_tag @pokemon.photos.first, height: 150  %>
+            <% end %>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title fw-bold"><%= @pokemon.name %></h4>
+            <p class="card-text">
+              <p><% @pokemon.types.each do |type| %>
+                <div class="badge text-bg-info">
+                  <%= type.capitalize %>
+                </div>
+              <% end %></p>
+              <p>Peso: <%= @pokemon.weight %></p>
+              <p>Habilidades</p>
+              <% @pokemon.abilities.each do |ability| %>
+                <div class="badge text-bg-light">
+                  <%= ability.capitalize %>
+                </div>
+              <% end %>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
-
-
-<div class="container">
-
-
-
-  <% if @pokemon %>
-    <p><%= link_to :back do %>
-      <i class="fa-solid fa-circle-chevron-left"></i>
-    <% end %></p>
-    <%= image_tag @pokemon.photos.first %>
-    <p>Nombre: <%= @pokemon.name %></p>
-    <p>Tipo:</p>
-    <ul>
-      <% @pokemon.types.each do |type| %>
-        <li><%= type.capitalize %></li>
-      <% end %>
-    </ul>
-    <p>Peso: <%= @pokemon.weight %></p>
-    <p>Habilidades</p>
-    <ul>
-      <% @pokemon.abilities.each do |ability| %>
-        <li><%= ability.capitalize %></li>
-      <% end %>
-    </ul>
-    <%= link_to "Ver màs información de #{@pokemon.name}", pokemon_path(@pokemon.name), class:"btn btn-primary" %>
-    <hr>
   <% else %>
-
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
       <% @pokemons.each do |poke| %>
         <div class="col">
-          <div class="card h-100">
-            <%= link_to pokemon_path(poke.name) do %>
-              <%= image_tag poke.photos.first, class:"card-img-top" %>
-            <% end %>
+          <div class="card shadow h-100">
+            <div class="d-flex justify-content-center">
+              <%= link_to pokemon_path(poke.name) do %>
+                <%= image_tag poke.photos.first, height: 150  %>
+              <% end %>
+            </div>
             <div class="card-body">
-              <h5 class="card-title"><%= poke.name %></h5>
+              <h4 class="card-title fw-bold"><%= poke.name %></h4>
               <p class="card-text">
-                <p>Tipo:</p>
-                <ul>
-                  <% poke.types.each do |type| %>
-                    <li><%= type.capitalize %></li>
-                  <% end %>
-                </ul>
+                <p><% poke.types.each do |type| %>
+                  <div class="badge text-bg-info">
+                    <%= type.capitalize %>
+                  </div>
+                <% end %></p>
                 <p>Peso: <%= poke.weight %></p>
                 <p>Habilidades</p>
-                <ul>
-                  <% poke.abilities.each do |ability| %>
-                    <li><%= ability.capitalize %></li>
-                  <% end %>
-                </ul>
+                <% poke.abilities.each do |ability| %>
+                  <div class="badge text-bg-light">
+                    <%= ability.capitalize %>
+                  </div>
+                <% end %>
               </p>
             </div>
           </div>
         </div>
       <% end %>
     </div>
-
-    <nav aria-label="Page navigation example" class="m-3">
+    <nav aria-label="Page navigation example" class="m-4">
       <ul class="pagination justify-content-center">
         <% if @previous %>
           <li class="page-item">

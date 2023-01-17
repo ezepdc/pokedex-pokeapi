@@ -8,7 +8,7 @@ class PokeapiClient
     JSON.parse(response.body)
   end
 
-  def get_pokemon(id)
+  def get_pokemon(id, details: false, evolves: false)
     endpoint = "/pokemon/#{id}"
     response = call(endpoint)
     pokemon = Pokemon.new(name: response["name"], weight: response["weight"], id: response["id"])
@@ -22,6 +22,14 @@ class PokeapiClient
       ability["ability"]["name"]
     end
 
+    if details == true
+      get_pokemon_details(id)
+    end
+
+    if evolves == true
+      get_pokemon_evolves(id)
+    end
+    
     pokemon
   end
 
