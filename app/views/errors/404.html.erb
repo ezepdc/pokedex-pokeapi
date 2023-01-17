@@ -1,12 +1,23 @@
 <div class="banner mb-4">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-end">
+      <li class="page-item">
+        <%= link_to pokemons_path, class:"page-link" do %>
+          <i class="fa-solid fa-house"></i> Home
+        <% end %>
+      </li>
+    </ul>
+  </nav>
   <div class="text-center text-white">
     <h1>Pokédex</h1>
     <h3>Algo no funcionó</h3>
-    <p>Si ha realizado una búsqueda es posible que no exista ese Pokemón</p>
-    <p>Por favor vuelve a intentarlo</p>
   </div>
 </div>
 <div class="container">
+  <div class="text-center">
+    <p>Si ha realizado una búsqueda es posible que no exista ese Pokemón</p>
+    <p>Por favor vuelve a intentarlo</p>
+  </div>
   <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
       <li class="page-item">

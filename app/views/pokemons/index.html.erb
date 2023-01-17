@@ -1,4 +1,13 @@
 <div class="banner mb-4">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-end">
+      <li class="page-item">
+        <%= link_to pokemons_path, class:"page-link" do %>
+          <i class="fa-solid fa-house"></i> Home
+        <% end %>
+      </li>
+    </ul>
+  </nav>
   <div class="text-center text-white">
     <h1>Pokédex</h1>
   </div>
@@ -32,7 +41,7 @@
             <% end %>
           </div>
           <div class="card-body">
-            <h4 class="card-title fw-bold"><%= @pokemon.name %></h4>
+            <h4 class="card-title fw-bold"><%= @pokemon.name.capitalize %></h4>
             <p class="card-text">
               <p><% @pokemon.types.each do |type| %>
                 <div class="badge text-bg-info">
@@ -62,7 +71,7 @@
               <% end %>
             </div>
             <div class="card-body">
-              <h4 class="card-title fw-bold"><%= poke.name %></h4>
+              <h4 class="card-title fw-bold"><%= poke.name.capitalize %></h4>
               <p class="card-text">
                 <p><% poke.types.each do |type| %>
                   <div class="badge text-bg-info">

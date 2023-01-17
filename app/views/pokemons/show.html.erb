@@ -1,38 +1,73 @@
-<div class="container">
-  <p><%= link_to :back do %>
-    <i class="fa-solid fa-circle-chevron-left"></i>
-  <% end %></p>
-
-  <p><%= image_tag @pokemon.photos.first %></p>
-  <p>Nombre: <%= @pokemon.name %></p>
-  <p>Tipo:</p>
-  <ul>
-    <% @pokemon.types.each do |type| %>
-      <li><%= type %></li>
-    <% end %>
-  </ul>
-  <p>Peso: <%= @pokemon.weight %></p>
-  <p>Habilidades</p>
-  <ul>
-    <% @pokemon.abilities.each do |ability| %>
-      <li><%= ability %></li>
-    <% end %>
-  </ul>
-  <p>Descripción</p>
-  <ul>
-    <% @pokemon_details.effect_entries.each do |effect_entry| %>
-      <% if effect_entry["language"]["name"] == "en" %>
-        <li><%= effect_entry["effect"] %></li>
-      <% end %>
-    <% end %>
-  </ul>
-  <p>Evoluciones</p>
-  <ul>
-    <% @pokemon_evolves.chains.each do |chain| %>
-        <% if chain["evolves_to"][0].present? %>
-          <li><%= chain["evolves_to"][0]["species"]["name"] %></li>
+<div class="banner mb-4">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-end">
+      <li class="page-item">
+        <%= link_to pokemons_path, class:"page-link" do %>
+          <i class="fa-solid fa-house"></i> Home
         <% end %>
-        <li><%= chain["species"]["name"] %></li>
-    <% end %>
-  </ul>
+      </li>
+    </ul>
+  </nav>
+  <div class="text-center text-white">
+    <h1>Pokédex</h1>
+  </div>
+</div>
+<div class="container">
+  <nav aria-label="Page navigation example">
+    <ul class="pagination">
+      <li class="page-item">
+        <%= link_to :back, class:"page-link" do %>
+          <i class="fa-sharp fa-solid fa-chevron-left"></i> Volver
+        <% end %>
+      </li>
+    </ul>
+  </nav>
+  <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 g-2 d-flex justify-content-center mb-4">
+      <div class="col">
+        <div class="card shadow h-100">
+          <div class="d-flex justify-content-center">
+            <%= image_tag @pokemon.photos.first, height: 150  %>
+          </div>
+          <div class="card-body">
+            <h4 class="card-title fw-bold"><%= @pokemon.name.capitalize %></h4>
+            <p class="card-text">
+              <% @pokemon_details.effect_entries.each do |effect_entry| %>
+                <% if effect_entry["language"]["name"] == "en" %>
+                  <%= effect_entry["effect"] %>
+                <% end %>
+              <% end %>
+            </p>
+            <p class="card-text">
+              <p>
+                <% @pokemon.types.each do |type| %>
+                  <div class="badge text-bg-info">
+                    <%= type.capitalize %>
+                  </div>
+                <% end %>
+              </p>
+              <p>Peso: <%= @pokemon.weight %></p>
+              <p>Habilidades</p>
+              <p>
+                <% @pokemon.abilities.each do |ability| %>
+                  <div class="badge text-bg-light">
+                    <%= ability.capitalize %>
+                  </div>
+                <% end %>
+              </p>
+              <p>Evoluciones</p>
+              <p>
+                <% @pokemon_evolves.chains.each do |chain| %>
+                  <div class="badge text-bg-dark">
+                    <% if chain["evolves_to"][0].present? %>
+                      <%= chain["evolves_to"][0]["species"]["name"].capitalize %>
+                    <% end %>
+                    <%= chain["species"]["name"].capitalize %>
+                  </div>
+                <% end %>
+              </p>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
