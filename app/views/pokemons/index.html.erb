@@ -47,7 +47,7 @@
           <li><%= ability %></li>
         <% end %>
       </ul>
-      <%= link_to "Ver màs información de #{poke.name}", poke_path(poke.name), class:"btn btn-primary" %>
+      <%= link_to "Ver màs información de #{poke.name}", pokemon_path(poke.name), class:"btn btn-primary" %>
       <hr>
     <% end %>
     <% if @previous %>
