@@ -43,13 +43,7 @@
           </div>
           <div class="card-body">
             <h4 class="card-title fw-bold"><%= @pokemon.name.capitalize %></h4>
-            <p class="card-text">
-              <% @pokemon_details.effect_entries.each do |effect_entry| %>
-                <% if effect_entry["language"]["name"] == "en" %>
-                  <%= effect_entry["effect"] %>
-                <% end %>
-              <% end %>
-            </p>
+            <p class="card-text"><%= @pokemon.effect %></p>
             <p class="card-text">
               <p>
                 <% @pokemon.types.each do |type| %>
@@ -69,12 +63,9 @@
               </p>
               <p>Evoluciones</p>
               <p>
-                <% @pokemon_evolves.chains.each do |chain| %>
+                <% @pokemon.evolves.each do |evolve| %>
                   <div class="badge text-bg-dark">
-                    <% if chain["evolves_to"][0].present? %>
-                      <%= chain["evolves_to"][0]["species"]["name"].capitalize %>
-                    <% end %>
-                    <%= chain["species"]["name"].capitalize %>
+                    <%= evolve.capitalize %>
                   </div>
                 <% end %>
               </p>

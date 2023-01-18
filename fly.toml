@@ -1,6 +1,6 @@
-# fly.toml file generated for pokedex-ezepdc on 2023-01-17T14:00:41+01:00
+# fly.toml file generated for pokedex-eze on 2023-01-17T23:07:11+01:00
 
-app = "pokedex-ezepdc"
+app = "pokedex-eze"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []

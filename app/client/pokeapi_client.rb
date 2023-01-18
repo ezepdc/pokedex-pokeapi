@@ -8,8 +8,15 @@ class PokeapiClient
     JSON.parse(response.body)
   end
 
-  def get_pokemon(id, details: false, evolves: false)
-    endpoint = "/pokemon/#{id}"
+  def all_pokemon(query)
+    response = call("/pokemon?#{query}")
+    response["results"].map do |r|
+      get_pokemon(r["name"])
+    end
+  end
+
+  def get_pokemon(name, effect: false, evolves: false)
+    endpoint = "/pokemon/#{name}"
     response = call(endpoint)
     pokemon = Pokemon.new(name: response["name"], weight: response["weight"], id: response["id"])
     pokemon.photos = response["sprites"]["other"]["home"].map do |photo|
@@ -22,44 +29,38 @@ class PokeapiClient
       ability["ability"]["name"]
     end
 
-    if details == true
-      get_pokemon_details(id)
+    if effect == true
+      pokemon.effect = get_pokemon_effect(pokemon.id)
     end
 
     if evolves == true
-      get_pokemon_evolves(id)
+      pokemon.evolves = get_pokemon_evolves(pokemon.id)
     end
-    
+
     pokemon
   end
 
-  def get_pokemon_details(id)
+  def get_pokemon_effect(id)
     endpoint = "/ability/#{id}"
     response = call(endpoint)
-    pokemon_details = Pokemon.new(name: response["name"], weight: response["weight"], id: response["id"])
-    pokemon_details.effect_entries = response["effect_entries"].map do |effect_entry|
-      effect_entry
-    end
-
-    pokemon_details
+    response["effect_entries"].select { |e| e["language"]["name"] == "en" }.first["effect"]
   end
 
   def get_pokemon_evolves(id)
     endpoint = "/evolution-chain/#{id}"
     response = call(endpoint)
-    pokemon_evolves = Pokemon.new(name: response["name"], weight: response["weight"], id: response["id"])
-    pokemon_evolves.chains = response["chain"]["evolves_to"].map do |chain|
-      chain
-    end
-
-    pokemon_evolves
+    get_species(response["chain"])
   end
 
-  def all_pokemon(query)
-    response = call("/pokemon?#{query}")
-    response["results"].map do |r|
-      get_pokemon(r["name"])
+  def get_species(response)
+    evolutions = []
+    evolutions << response["species"]["name"]
+    current_evolution = response["evolves_to"]
+    while !current_evolution.empty? do
+      evolutions << current_evolution[0]["species"]["name"]
+      current_evolution = current_evolution[0]["evolves_to"]
     end
+    evolutions
   end
 
   def next(query)
