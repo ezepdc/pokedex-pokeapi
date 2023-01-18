@@ -17,34 +17,34 @@ class PokeapiClient
     endpoint = "/pokemon/#{name}"
     response = call(endpoint)
     pokemon = Pokemon.new(name: response["name"], weight: response["weight"], id: response["id"])
-    pokemon.photos = extract_photos(response)
-    pokemon.types = extract_types(response)
-    pokemon.abilities = extract_abilities(response)
-    pokemon.effect = get_pokemon_effect(pokemon.id) if effect
-    pokemon.evolves = get_pokemon_evolves(pokemon.id) if evolves
+    pokemon.photos = get_photos(response)
+    pokemon.types = get_types(response)
+    pokemon.abilities = get_abilities(response)
+    pokemon.effect = get_effect(pokemon.id) if effect
+    pokemon.evolves = get_evolves(pokemon.id) if evolves
 
     pokemon
   end
 
-  def extract_photos(response)
+  def get_photos(response)
     response["sprites"]["other"]["home"].map { |photo| photo[1] }
   end
 
-  def extract_types(response)
+  def get_types(response)
     response["types"].map { |type| type["type"]["name"] }
   end
 
-  def extract_abilities(response)
+  def get_abilities(response)
     response["abilities"].map { |ability| ability["ability"]["name"] }
   end
 
-  def get_pokemon_effect(id)
+  def get_effect(id)
     endpoint = "/ability/#{id}"
     response = call(endpoint)
     response["effect_entries"].select { |e| e["language"]["name"] == "en" }.first["effect"]
   end
 
-  def get_pokemon_evolves(id)
+  def get_evolves(id)
     endpoint = "/evolution-chain/#{id}"
     response = call(endpoint)
     get_species(response["chain"])
