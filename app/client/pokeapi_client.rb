@@ -10,34 +10,32 @@ class PokeapiClient
 
   def all_pokemon(query)
     response = call("/pokemon?#{query}")
-    response["results"].map do |r|
-      get_pokemon(r["name"])
-    end
+    response["results"].map { |r| get_pokemon(r["name"]) }
   end
 
   def get_pokemon(name, effect: false, evolves: false)
     endpoint = "/pokemon/#{name}"
     response = call(endpoint)
     pokemon = Pokemon.new(name: response["name"], weight: response["weight"], id: response["id"])
-    pokemon.photos = response["sprites"]["other"]["home"].map do |photo|
-      photo[1]
-    end
-    pokemon.types = response["types"].map do |type|
-      type["type"]["name"]
-    end
-    pokemon.abilities = response["abilities"].map do |ability|
-      ability["ability"]["name"]
-    end
-
-    if effect == true
-      pokemon.effect = get_pokemon_effect(pokemon.id)
-    end
-
-    if evolves == true
-      pokemon.evolves = get_pokemon_evolves(pokemon.id)
-    end
+    pokemon.photos = extract_photos(response)
+    pokemon.types = extract_types(response)
+    pokemon.abilities = extract_abilities(response)
+    pokemon.effect = get_pokemon_effect(pokemon.id) if effect
+    pokemon.evolves = get_pokemon_evolves(pokemon.id) if evolves
 
     pokemon
+  end
+
+  def extract_photos(response)
+    response["sprites"]["other"]["home"].map { |photo| photo[1] }
+  end
+
+  def extract_types(response)
+    response["types"].map { |type| type["type"]["name"] }
+  end
+
+  def extract_abilities(response)
+    response["abilities"].map { |ability| ability["ability"]["name"] }
   end
 
   def get_pokemon_effect(id)
@@ -56,7 +54,7 @@ class PokeapiClient
     evolutions = []
     evolutions << response["species"]["name"]
     current_evolution = response["evolves_to"]
-    while !current_evolution.empty? do
+    until current_evolution.empty?
       evolutions << current_evolution[0]["species"]["name"]
       current_evolution = current_evolution[0]["evolves_to"]
     end
