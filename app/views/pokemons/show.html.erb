@@ -43,8 +43,8 @@
           </div>
           <div class="card-body">
             <h4 class="card-title fw-bold"><%= @pokemon.name.capitalize %></h4>
-            <p class="card-text"><%= @pokemon.effect %></p>
-            <p class="card-text">
+            <div class="card-text">
+              <p><%= @pokemon.effect %></p>
               <p>
                 <% @pokemon.types.each do |type| %>
                   <div class="badge text-bg-info">
@@ -69,7 +69,7 @@
                   </div>
                 <% end %>
               </p>
-            </p>
+            </div>
           </div>
         </div>
       </div>
