@@ -14,6 +14,6 @@ class PokemonsController < ApplicationController
   end
 
   def show
-    @pokemon = PokeapiClient.new.get_pokemon(params[:id], effect: true, evolves: true)
+    @pokemon ||= PokeapiClient.new.get_pokemon(params[:id], effect: true, evolves: true)
   end
 end
