@@ -25,63 +25,11 @@
       </ul>
     </nav>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 d-flex justify-content-center mb-4">
-      <div class="col">
-        <div class="card shadow h-100">
-          <div class="d-flex justify-content-center">
-            <%= link_to pokemon_path(@pokemon.name) do %>
-              <%= image_tag @pokemon.photos.first, height: 150  %>
-            <% end %>
-          </div>
-          <div class="card-body">
-            <h4 class="card-title fw-bold"><%= @pokemon.name.capitalize %></h4>
-            <p class="card-text">
-              <p><% @pokemon.types.each do |type| %>
-                <div class="badge text-bg-info">
-                  <%= type.capitalize %>
-                </div>
-              <% end %></p>
-              <p>Peso: <%= @pokemon.weight %></p>
-              <p>Habilidades</p>
-              <% @pokemon.abilities.each do |ability| %>
-                <div class="badge text-bg-light">
-                  <%= ability.capitalize %>
-                </div>
-              <% end %>
-            </p>
-          </div>
-        </div>
-      </div>
+      <%= render "shared/poke", poke: @pokemon %>
     </div>
   <% else %>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-      <% @pokemons.each do |poke| %>
-        <div class="col">
-          <div class="card shadow h-100">
-            <div class="d-flex justify-content-center">
-              <%= link_to pokemon_path(poke.name) do %>
-                <%= image_tag poke.photos.first, height: 150  %>
-              <% end %>
-            </div>
-            <div class="card-body">
-              <h4 class="card-title fw-bold"><%= poke.name.capitalize %></h4>
-              <p class="card-text">
-                <p><% poke.types.each do |type| %>
-                  <div class="badge text-bg-info">
-                    <%= type.capitalize %>
-                  </div>
-                <% end %></p>
-                <p>Peso: <%= poke.weight %></p>
-                <p>Habilidades</p>
-                <% poke.abilities.each do |ability| %>
-                  <div class="badge text-bg-light">
-                    <%= ability.capitalize %>
-                  </div>
-                <% end %>
-              </p>
-            </div>
-          </div>
-        </div>
-      <% end %>
+      <%= render partial: "shared/poke", collection: @pokemons.each %>
     </div>
     <nav aria-label="Page navigation example" class="m-4">
       <ul class="pagination justify-content-center">
