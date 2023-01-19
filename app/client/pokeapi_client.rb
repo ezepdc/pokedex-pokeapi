@@ -9,14 +9,14 @@ class PokeapiClient
   end
 
   def all_pokemon(query)
-    response = call("/pokemon?#{query}")
+    response ||= call("/pokemon?#{query}")
     response["results"].map { |r| get_pokemon(r["name"]) }
   end
 
   def get_pokemon(name, effect: false, evolves: false)
     endpoint = "/pokemon/#{name}"
     response = call(endpoint)
-    pokemon = Pokemon.new(name: response["name"], weight: response["weight"], idb: response["id"])
+    pokemon ||= Pokemon.new(name: response["name"], weight: response["weight"], idb: response["id"])
     pokemon.photos = get_photos(response)
     pokemon.types = get_types(response)
     pokemon.abilities = get_abilities(response)
