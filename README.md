@@ -12,7 +12,7 @@ La aplicación se puede visualizar en el enlace https://pokedex-eze.fly.dev/poke
 <li>Peso</li>
 <li>Habilidades</li>
 </ul>
-  
+
 En índice tiene páginación y permite realizar búsquedas de pokemones por su nombre. En caso de que no exista o haya algún error ortográfico se muestra una pantalla de error.
 
 Al pinchar sobre un pokemon la aplicación dirige a su ficha descriptiva junto a su foto e información detallada:
@@ -21,11 +21,12 @@ Al pinchar sobre un pokemon la aplicación dirige a su ficha descriptiva junto a
 <li>Descripción</li>
 <li>Evoluciones</li>
 </ul>
-La aplicación incluye un test del modelo Pokemon.
-El mismo puede ejecutarse con el repositorio en local y desde una terminal con el comando:
+La aplicación incluye un test del modelo, controller y una plain class.
+Los mismos pueden ejecutarse con el repositorio en local y desde una terminal con los comandos:
 <ul>
 <li>rails test:models</li>
+<li>rails test:controllers</li>
+<li>rails test test/business/poke_test.rb</li>
 </ul>
-
 
 epuyosdacosta@gmail.com
