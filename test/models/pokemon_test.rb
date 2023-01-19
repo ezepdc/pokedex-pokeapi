@@ -1,39 +1,24 @@
-require "test_helper"
+require 'test_helper'
 
 class PokemonTest < ActiveSupport::TestCase
-  def setup
-    @pokemon = Pokemon.new(name: "Pikachu", weight: 6.0, id: 25)
-  end
+  test "validations" do
+    pokemon = Pokemon.new(name: "Pikachu", weight: 6.0, idb: 25)
+    assert pokemon.valid?, "Pokémon debería ser válido"
 
-  def test_name
-    assert_equal "Pikachu", @pokemon.name
-  end
+    pokemon = Pokemon.new(weight: 6.0, idb: 25)
+    assert_not pokemon.valid?, "Pokémon debería ser inválido"
+    assert_equal ["no puede estar en blanco"], pokemon.errors[:name]
 
-  def test_weight
-    assert_equal 6.0, @pokemon.weight
-  end
+    pokemon = Pokemon.new(name: "Pikachu", weight: "six", idb: 25)
+    assert_not pokemon.valid?, "Pokémon debería ser inválido"
+    assert_equal ["no es un número"], pokemon.errors[:weight]
 
-  def test_id
-    assert_equal 25, @pokemon.id
-  end
+    pokemon = Pokemon.new(name: "Pikachu", weight: 6.0, idb: "twenty-five")
+    assert_not pokemon.valid?, "Pokémon debería ser inválido"
+    assert_equal ["no es un número"], pokemon.errors[:idb]
 
-  def test_photos
-    assert_nil @pokemon.photos
-  end
-
-  def test_types
-    assert_nil @pokemon.types
-  end
-
-  def test_abilities
-    assert_nil @pokemon.abilities
-  end
-
-  def test_effect
-    assert_nil @pokemon.effect
-  end
-
-  def test_evolves
-    assert_nil @pokemon.evolves
+    pokemon = Pokemon.new(name: "Pikachu", weight: 6.0, idb: "25a")
+    assert_not pokemon.valid?, "Pokémon debería ser inválido"
+    assert_equal ["no es un número"], pokemon.errors[:idb]
   end
 end

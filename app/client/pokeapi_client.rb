@@ -16,12 +16,12 @@ class PokeapiClient
   def get_pokemon(name, effect: false, evolves: false)
     endpoint = "/pokemon/#{name}"
     response = call(endpoint)
-    pokemon = Pokemon.new(name: response["name"], weight: response["weight"], id: response["id"])
+    pokemon = Poke.new(name: response["name"], weight: response["weight"], idb: response["id"])
     pokemon.photos = get_photos(response)
     pokemon.types = get_types(response)
     pokemon.abilities = get_abilities(response)
-    pokemon.effect = get_effect(pokemon.id) if effect
-    pokemon.evolves = get_evolves(pokemon.id) if evolves
+    pokemon.effect = get_effect(pokemon.idb) if effect
+    pokemon.evolves = get_evolves(pokemon.idb) if evolves
 
     pokemon
   end
@@ -38,14 +38,14 @@ class PokeapiClient
     response["abilities"].map { |ability| ability["ability"]["name"] }
   end
 
-  def get_effect(id)
-    endpoint = "/ability/#{id}"
+  def get_effect(idb)
+    endpoint = "/ability/#{idb}"
     response = call(endpoint)
     response["effect_entries"].select { |e| e["language"]["name"] == "en" }.first["effect"]
   end
 
-  def get_evolves(id)
-    endpoint = "/evolution-chain/#{id}"
+  def get_evolves(idb)
+    endpoint = "/evolution-chain/#{idb}"
     response = call(endpoint)
     get_species(response["chain"])
   end
