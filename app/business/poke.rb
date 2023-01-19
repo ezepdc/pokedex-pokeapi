@@ -5,7 +5,7 @@ class Poke
     @name = name
     @weight = weight
     @idb = idb
-    @pokemon = Pokemon.new(name: name, weight: weight, idb: idb)
+    @pokemon = Pokemon.new(name:, weight:, idb:)
     @pokemon.save
   end
 end
