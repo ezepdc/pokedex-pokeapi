@@ -21,7 +21,7 @@ Al pinchar sobre un pokemon la aplicación dirige a su ficha descriptiva junto a
 <li>Descripción</li>
 <li>Evoluciones</li>
 </ul>
-La aplicación incluye un test del PokemonsController y de la Pokemon class.
+La aplicación incluye un test de PokemonsController y Pokemon class.
 Los mismos pueden ejecutarse con el repositorio en local y desde una terminal con los comandos:
 <ul>
 <li>rails test:controllers</li>
