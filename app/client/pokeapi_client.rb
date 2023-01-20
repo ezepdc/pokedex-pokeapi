@@ -8,7 +8,7 @@ class PokeapiClient
     JSON.parse(response.body)
   end
 
-  def all_pokemon(query)
+  def all_pokemon(query = "")
     response ||= call("/pokemon?#{query}")
     response["results"].map { |r| get_pokemon(r["name"]) }
   end
