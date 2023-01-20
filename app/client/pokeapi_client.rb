@@ -44,9 +44,11 @@ class PokeapiClient
     response["effect_entries"].select { |e| e["language"]["name"] == "en" }.first["effect"]
   end
 
-  def get_evolves(api_id)
-    endpoint = "/evolution-chain/#{api_id}"
-    response = call(endpoint)
+  def get_evolves(pokemon_id)
+    species_endpoint = "/pokemon-species/#{pokemon_id}"
+    species_response = call(species_endpoint)
+    evolution_chain_url = species_response["evolution_chain"]["url"]
+    response = call(evolution_chain_url.gsub(@url, ""))
     get_species(response["chain"])
   end
 
@@ -58,6 +60,7 @@ class PokeapiClient
       evolutions << current_evolution[0]["species"]["name"]
       current_evolution = current_evolution[0]["evolves_to"]
     end
+
     evolutions
   end
 
