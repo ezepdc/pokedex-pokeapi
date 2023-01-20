@@ -1,31 +1,26 @@
-<h1>Pokédex</h1>
-
+# Pokédex
+## Descripción
 Se ha construido una aplicación en Ruby on Rails que despliega un Pokédex!
 
-Esta app consume el servicio PokeApi https://pokeapi.co/ para obtener la información. En la integración se desarrolló la clase <i>PokeapiClient</i> que incluye métodos para hacer llamadas a la API y extraer la información requerida.
+Esta app consume el servicio PokeApi https://pokeapi.co/ para obtener la información. En la integración se desarrolló la clase *PokeapiClient* que incluye métodos para hacer llamadas a la API y extraer la información requerida.
 
 La aplicación se puede visualizar en el enlace https://pokedex-eze.fly.dev/pokemons donde se despliega un índice de pokemones con su respectiva:
-<ul>
-<li>Foto</li>
-<li>Nombre</li>
-<li>Tipo</li>
-<li>Peso</li>
-<li>Habilidades</li>
-</ul>
+- Foto
+- Nombre
+- Tipo
+- Peso
+- Habilidades
 
-En índice tiene páginación y permite realizar búsquedas de pokemones por su nombre. En caso de que no exista o haya algún error ortográfico se muestra una pantalla de error.
+En índice tiene paginación y permite realizar búsquedas de pokemones por su nombre. En caso de que no exista o haya algún error ortográfico se muestra una pantalla de error 404.
 
 Al pinchar sobre un pokemon la aplicación dirige a su ficha descriptiva junto a su foto e información detallada:
-<ul>
-<li>Información Básica (la misma del listado)</li>
-<li>Descripción</li>
-<li>Evoluciones</li>
-</ul>
-La aplicación incluye un test de PokemonsController y Pokemon class.
-Los mismos pueden ejecutarse con el repositorio en local y desde una terminal con los comandos:
-<ul>
-<li>rails test:controllers</li>
-<li>rails test test/business/pokemon_test.rb</li>
-</ul>
+- Información Básica (la misma del listado)
+- Descripción
+- Evoluciones
+
+## Tests
+La aplicación incluye test para la clase Pokemon, el controller y el client.
+Para ejecutar todos los tests:
+`rails test`
 
 epuyosdacosta@gmail.com
