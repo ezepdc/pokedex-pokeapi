@@ -10,14 +10,15 @@ class PokemonsControllerTest < ActionController::TestCase
   test "should get index with search term" do
     get :index, params: { search_term: "pikachu" }
     assert_response :success
-    assert_not_nil assigns(:pokemon)
+    assert_includes @response.body, "Pikachu"
+    assert_not_nil assigns(:pokemons)
   end
 
   test "should get show" do
-    pokemon = PokeapiClient.new.get_pokemon("pikachu")
-    get :show, params: { id: pokemon.name }
+    pokemon_name = "pikachu"
+    get :show, params: { id: pokemon_name }
     assert_response :success
-    assert_not_nil assigns(:pokemon)
+    assert_includes @response.body, "Pikachu"
   end
 
   test "should handle 404 error" do
