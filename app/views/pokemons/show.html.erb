@@ -5,52 +5,8 @@
   </div>
 </div>
 <div class="container">
-  <nav aria-label="Page navigation example">
-    <ul class="pagination">
-      <li class="page-item">
-        <%= link_to :back, class:"page-link" do %>
-          <i class="fa-sharp fa-solid fa-chevron-left"></i> Volver
-        <% end %>
-      </li>
-    </ul>
-  </nav>
+  <%= render partial: "shared/back" %>
   <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 g-2 d-flex justify-content-center mb-4">
-      <div class="col">
-        <div class="card shadow h-100">
-          <div class="d-flex justify-content-center">
-            <%= image_tag @pokemon.photos.first, height: 150  %>
-          </div>
-          <div class="card-body">
-            <h4 class="card-title fw-bold"><%= @pokemon.name.capitalize %></h4>
-            <div class="card-text">
-              <p><%= @pokemon.effect %></p>
-              <p>
-                <% @pokemon.types.each do |type| %>
-                  <div class="badge text-bg-info">
-                    <%= type.capitalize %>
-                  </div>
-                <% end %>
-              </p>
-              <p>Peso: <%= @pokemon.weight %></p>
-              <p>Habilidades</p>
-              <p>
-                <% @pokemon.abilities.each do |ability| %>
-                  <div class="badge text-bg-light">
-                    <%= ability.capitalize %>
-                  </div>
-                <% end %>
-              </p>
-              <p>Evoluciones</p>
-              <p>
-                <% @pokemon.evolves.each do |evolve| %>
-                  <div class="badge text-bg-dark">
-                    <%= evolve.capitalize %>
-                  </div>
-                <% end %>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <%= render partial: "pokemons/pokemon", locals: { pokemon: @pokemon, show_effect: true, show_evolves: true } %>
+  </div>
 </div>

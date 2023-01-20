@@ -14,22 +14,11 @@
   </div>
 </div>
 <div class="container">
-  <% if @pokemon %>
-    <nav aria-label="Page navigation example">
-      <ul class="pagination">
-        <li class="page-item">
-          <%= link_to :back, class:"page-link" do %>
-            <i class="fa-sharp fa-solid fa-chevron-left"></i> Volver
-          <% end %>
-        </li>
-      </ul>
-    </nav>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 d-flex justify-content-center mb-4">
-      <%= render "shared/poke", poke: @pokemon %>
-    </div>
-  <% else %>
+  <% if params["search_term"] %>
+    <%= render partial: "shared/back" %>
+  <% end %>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-      <%= render partial: "shared/poke", collection: @pokemons.each %>
+      <%= render partial: "pokemons/pokemon", collection: @pokemons.each, locals: { show_effect: false, show_evolves: false } %>
     </div>
     <nav aria-label="Page navigation example" class="m-4">
       <ul class="pagination justify-content-center">
@@ -49,5 +38,4 @@
         <% end %>
       </ul>
     </nav>
-  <% end %>
 </div>

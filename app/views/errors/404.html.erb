@@ -6,17 +6,9 @@
   </div>
 </div>
 <div class="container">
+  <%= render partial: "shared/back" %>
   <div class="text-center">
     <p>Si ha realizado una búsqueda es posible que no exista ese Pokemón</p>
     <p>Por favor vuelve a intentarlo</p>
   </div>
-  <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-      <li class="page-item">
-        <%= link_to :back, class:"page-link" do %>
-          <i class="fa-sharp fa-solid fa-chevron-left"></i> Volver
-        <% end %>
-      </li>
-    </ul>
-  </nav>
 </div>
