@@ -1,8 +1,10 @@
 class PokemonsController < ApplicationController
+  before_action :set_pokemon, only: :show
+
   def index
     pokeapi = PokeapiClient.new
     if params[:search_term].present?
-      @pokemon = pokeapi.get_pokemon(params[:search_term].downcase)
+      @pokemons = [pokeapi.get_pokemon(params[:search_term].downcase)]
     else
       query = request.query_string
       @pokemons = pokeapi.all_pokemon(query)
@@ -14,6 +16,11 @@ class PokemonsController < ApplicationController
   end
 
   def show
+  end
+
+  private
+
+  def set_pokemon
     @pokemon = PokeapiClient.new.get_pokemon(params[:id], effect: true, evolves: true)
   end
 end
