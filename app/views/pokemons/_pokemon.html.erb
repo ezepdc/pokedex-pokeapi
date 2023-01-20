@@ -28,9 +28,13 @@
         <p>Evoluciones</p>
         <p>
           <% @pokemon.evolves.each do |evolve| %>
-            <div class="badge text-bg-dark">
-              <%= evolve.capitalize %>
-            </div>
+            <% if evolve == pokemon.name %>
+              <span class="badge text-bg-secondary">
+                <%= evolve.capitalize %>
+              </span>
+            <% else %>
+              <%= link_to evolve.capitalize, pokemon_path(evolve), class: "badge text-bg-dark text-decoration-none" %>
+            <% end %>
           <% end %>
         </p>
       <% end %>
