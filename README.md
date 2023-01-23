@@ -4,7 +4,7 @@ Se ha construido una aplicación en Ruby on Rails que despliega un Pokédex!
 
 Esta app consume el servicio PokeApi https://pokeapi.co/ para obtener la información. En la integración se desarrolló la clase *PokeapiClient* que incluye métodos para hacer llamadas a la API y extraer la información requerida.
 
-La aplicación se puede visualizar en el enlace https://pokedex-eze.fly.dev/pokemons donde se despliega un índice de pokemones con su respectiva:
+La aplicación se puede visualizar en el enlace https://pokedex-eze.fly.dev donde se despliega un índice de pokemones con su respectiva:
 - Foto
 - Nombre
 - Tipo
