@@ -5,11 +5,10 @@ class PokemonsController < ApplicationController
     pokeapi = PokeapiClient.new
     if params[:search_term].present?
       @pokemons = [pokeapi.get_pokemon(params[:search_term].downcase)]
+      @pagination = {}
     else
       query = request.query_string
-      @pokemons = pokeapi.all_pokemon(query)
-      @next = pokeapi.next(query)
-      @previous = pokeapi.previous(query)
+      @pokemons, @pagination = pokeapi.all_pokemon(query)
     end
   rescue RestClient::NotFound
     render template: "errors/404", status: 404

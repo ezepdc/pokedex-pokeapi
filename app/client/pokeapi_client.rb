@@ -10,7 +10,13 @@ class PokeapiClient
 
   def all_pokemon(query = "")
     response ||= call("/pokemon?#{query}")
-    response["results"].map { |r| get_pokemon(r["name"]) }
+    pokemons = response["results"].map { |r| get_pokemon(r["name"]) }
+    pagination = {
+      next: get_query_string(response["next"]),
+      prev: get_query_string(response["previous"])
+    }
+
+    [pokemons, pagination]
   end
 
   def get_pokemon(name, effect: false, evolves: false)
@@ -64,13 +70,11 @@ class PokeapiClient
     evolutions
   end
 
-  def next(query)
-    response = call("/pokemon?#{query}")
-    URI(response["next"]).query
-  end
+  private
 
-  def previous(query)
-    response = call("/pokemon?#{query}")
-    URI(response["previous"]).query if response["previous"]
+  def get_query_string(url)
+    return if url.blank?
+
+    URI(url).query
   end
 end

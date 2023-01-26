@@ -24,7 +24,7 @@ class PokeapiClientTest < ActiveSupport::TestCase
   end
 
   test "get all" do
-    pokemons = PokeapiClient.new.all_pokemon
+    pokemons, pagination = PokeapiClient.new.all_pokemon
     assert_equal 20, pokemons.size
     assert_equal Pokemon, pokemons.first.class
   end

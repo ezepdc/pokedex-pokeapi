@@ -18,20 +18,20 @@
     <%= render partial: "shared/back" %>
   <% end %>
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-      <%= render partial: "pokemons/pokemon", collection: @pokemons.each, locals: { show_effect: false, show_evolves: false } %>
+      <%= render partial: "pokemons/pokemon", collection: @pokemons, locals: { show_effect: false, show_evolves: false } %>
     </div>
     <nav aria-label="Page navigation example" class="m-4">
       <ul class="pagination justify-content-center">
-        <% if @previous %>
+        <% unless @pagination[:prev].blank? %>
           <li class="page-item">
-            <%= link_to pokemons_path + "?" + @previous, class:"page-link" do %>
+            <%= link_to root_path + "?" + @pagination[:prev], class:"page-link" do %>
               <i class="fa-sharp fa-solid fa-chevron-left"></i> Anteriores
             <% end %>
           </li>
         <% end %>
-        <% if @next %>
+        <% unless @pagination[:next].blank? %>
           <li class="page-item">
-            <%= link_to pokemons_path + "?" + @next, class:"page-link" do %>
+            <%= link_to root_path + "?" + @pagination[:next], class:"page-link" do %>
               Siguientes <i class="fa-sharp fa-solid fa-chevron-right"></i>
             <% end %>
           </li>
