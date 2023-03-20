@@ -9,7 +9,7 @@ class PokeapiClient
   end
 
   def all_pokemon(query = "")
-    response ||= call("/pokemon?#{query}")
+    response = call("/pokemon?#{query}")
     pokemons = response["results"].map { |r| get_pokemon(r["name"]) }
     pagination = {
       next: get_query_string(response["next"]),
