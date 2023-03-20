@@ -22,7 +22,7 @@ class PokeapiClient
   def get_pokemon(name, effect: false, evolves: false)
     endpoint = "/pokemon/#{name}"
     response = call(endpoint)
-    pokemon ||= Pokemon.new(name: response["name"], weight: response["weight"], api_id: response["id"])
+    pokemon = Pokemon.new(name: response["name"], weight: response["weight"], api_id: response["id"])
     pokemon.photos = get_photos(response)
     pokemon.types = get_types(response)
     pokemon.abilities = get_abilities(response)
