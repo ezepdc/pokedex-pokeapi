@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.0.0"
+ruby "3.1.2"
 gem 'rest-client'
 gem 'minitest', '~> 5.8', '>= 5.8.4'
 gem 'rails-controller-testing'
