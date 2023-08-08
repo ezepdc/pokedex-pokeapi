@@ -4,11 +4,11 @@ class PokeapiClient
   end
 
   def call(uri)
-    response = Rails.cache.fetch(uri, expires_in: 10.seconds) do
-      RestClient.get(@base_url + uri)
+    response_body = Rails.cache.fetch(uri, expires_in: 10.seconds) do
+      RestClient.get(@base_url + uri)&.body
     end
 
-    JSON.parse(response.body)
+    JSON.parse(response_body)
   end
 
   def all_pokemon(query = "")
