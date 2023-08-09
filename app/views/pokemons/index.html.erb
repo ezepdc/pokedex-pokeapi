@@ -3,7 +3,7 @@
   <div class="text-center text-white">
     <h1>Pokédex</h1>
   </div>
-  <div class="container d-flex col-12 col-md-6 col-lg-4">
+  <div class="container d-flex justify-content-center align-items-center">
     <%= form_tag({controller: "pokemons", action: "index"}, method: :get, class: "d-flex my-3") do %>
       <%= text_field_tag :search_term,
       params[:search_term],
