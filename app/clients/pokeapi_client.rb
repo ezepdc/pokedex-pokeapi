@@ -4,7 +4,7 @@ class PokeapiClient
   end
 
   def call(uri)
-    response_body = Rails.cache.fetch(uri, expires_in: 10.seconds) do
+    response_body = Rails.cache.fetch(uri, expires_in: 30.seconds) do
       RestClient.get(@base_url + uri)&.body
     end
 
