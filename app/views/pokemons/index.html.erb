@@ -22,14 +22,14 @@
     </div>
     <nav aria-label="Page navigation example" class="m-4">
       <ul class="pagination justify-content-center">
-        <% unless @pagination[:prev].blank? %>
+        <% if @pagination[:prev].present? %>
           <li class="page-item">
             <%= link_to root_path + "?" + @pagination[:prev], class:"page-link" do %>
               <i class="fa-sharp fa-solid fa-chevron-left"></i> Anteriores
             <% end %>
           </li>
         <% end %>
-        <% unless @pagination[:next].blank? %>
+        <% if @pagination[:next].present? %>
           <li class="page-item">
             <%= link_to root_path + "?" + @pagination[:next], class:"page-link" do %>
               Siguientes <i class="fa-sharp fa-solid fa-chevron-right"></i>
